@@ -1,6 +1,5 @@
 const express = require('express');
 const homePage = express();
-const inbox = require ('./routes/inbox');
 const login = require ('./routes/login');
 const post = require ('./routes/post');
 const profile = require ('./routes/profile');
@@ -9,7 +8,6 @@ const profile = require ('./routes/profile');
 homePage.get('/', (req, res) => res.send('Hello, its a beautiful day, I am loving it'));
 
 //routes
-homePage.use('/routes/inbox', inbox);
 homePage.use('/routes/login', login);
 homePage.use('/routes/post', post);
 homePage.use('/routes/profile', profile);
