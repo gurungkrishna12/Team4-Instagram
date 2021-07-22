@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "server": "nodemon server.js"
+    "dev": "nodemon server.js"
   },
   "author": "Krishna Gurung, Jorge Canul, Srinivas Rao",
   "license": "ISC",
@@ -15,10 +15,8 @@
     "mongoose": "^5.13.2",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0"
-    
   },
-
-  "devDependencies": { 
+  "devDependencies": {
     "nodemon": "^2.0.12"
   }
 }
