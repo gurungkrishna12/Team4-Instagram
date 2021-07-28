@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose  = require('mongoose');
+const passport = require('passport');
 const keys = require('./config/keys');
 const homePage = express();
 const login = require ('./routes/login');
@@ -17,6 +18,9 @@ mongoose
   .then(() => console.log('MongoDB is connected'))
   .catch(err => console.log('Not connected', err))
 
+//Passport config 
+
+
 //first route
 homePage.get('/', (req, res) => res.send('Hello, its a beautiful day, I am loving it'));
 
@@ -25,6 +29,6 @@ homePage.use('/routes/login', login);
 homePage.use('/routes/post', post);
 homePage.use('/routes/profile', profile);
 
-const port = 5100;
+const port = 5000;
 homePage.listen(port, () => console.log(`Server is running on port ${port}`));
 
