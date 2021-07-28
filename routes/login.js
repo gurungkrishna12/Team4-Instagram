@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const User = require ('../models/User');
+const User = require ('../models/user');
 const bcrypt = require ('bcryptjs');
 const gravatar = require ('gravatar');
 //const keys = require('../config/keys');
@@ -43,6 +43,8 @@ router.post('/register', (req, res)=> {
         .catch(err => console.log(err));
 
 });
+
+
 
 module.exports = router;
 
