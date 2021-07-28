@@ -13,7 +13,7 @@ if (isEmpty(data.name)){
 }
 
 if(!Validator.isEmail(data.email)){
-   errors.email='Email is invalid';
+  errors.email='Email is invalid';
 }
 
 if(isEmpty(data.email)){
