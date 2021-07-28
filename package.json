@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Kal Academy- Assignment 3 Team 4 Instagram like page",
   "main": "server.js",
-  
   "scripts": {
     "start": "node server.js",
     "server": "nodemon server.js",
