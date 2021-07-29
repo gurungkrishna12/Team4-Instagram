@@ -9,6 +9,7 @@ opts.secretOrKey = keys.secretOrKey;
 
 module.exports = passport => {
   passport.use( new JwtStrategy(opts, (payload, done) => {
+    console.log(payload);
     User.findById(payload.id)
     .then(user => {
       if(user) {
@@ -19,3 +20,4 @@ module.exports = passport => {
     .catch((err) => console.log(err));
   }));
 };
+

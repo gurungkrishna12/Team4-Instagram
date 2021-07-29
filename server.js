@@ -18,7 +18,7 @@ homePage.use(express.json());
 const db = keys.mongoURI;
 console.log(db);
 mongoose.connect(db)
-.then(() => console.log('Connecte!'))
+.then(() => console.log('Connected!'))
 .catch(() => console.log('Not Connected'));
 
 //Passport config 
@@ -30,10 +30,11 @@ homePage.get('/', (req, res) => res.send('Hello, its a beautiful day, I am lovin
 
 
 // //routes
-homePage.use('/routes/login', login);
+homePage.use('/routes/users', login);
 homePage.use('/routes/post', post);
 homePage.use('/routes/profile', profile);
 
 const port = 5100;
 homePage.listen(port, () => console.log(`server is running in ${port}`));
+
 
