@@ -10,7 +10,14 @@ const validateRegisterInput = require('../validation/register');
 //description   Register a user 
 //@access       Public 
 
-router.post('/register', (req, res)=> {
+router.post('/register', (req, res) =>{
+    //validation 
+    const {errors, isValid} = validateRegisterInput(req.body);
+
+    if(!isValid){
+        return res.status(400).json(errors);
+    }
+
     User.findOne({email:req.body.email})
         .then(user => {
             if (user){
@@ -45,8 +52,6 @@ router.post('/register', (req, res)=> {
         .catch(err => console.log(err));
 
 });
-
-
 
 module.exports = router;
 

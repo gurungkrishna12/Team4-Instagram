@@ -8,7 +8,7 @@ module.exports = function validateProfileInput(data){
     errors.handle = "Handle needs to between 2 and 35 characters";
   }
   if (!Validator.isLength(data.bio, {max: 150})) {
-    errors.handle = "Handle needs to 150 characters max";
+    errors.handle = "Bio needs to 150 characters max";
   }
   if (isEmpty(data.handle)) {
     errors.handle = "Profile handle is required";
@@ -23,8 +23,6 @@ module.exports = function validateProfileInput(data){
     errors, 
     isValid: isEmpty(errors),
   }
-
-
 
 };
 
