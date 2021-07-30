@@ -7,16 +7,24 @@ const users = require ('./routes/login');
 const post = require ('./routes/post');
 const profile = require ('./routes/profile');
 
+
+
+
 //body parser config 
-homePage.use(express.urlencoded())
-homePage.use(express.json())
+
+homePage.use(express.urlencoded());
+homePage.use(express.json());
 
 //database configuration 
-const db = keys.mongoURI
-mongoose
-  .connect(db)
-  .then(() => console.log('MongoDB is connected'))
-  .catch(err => console.log('Not connected', err))
+const db = keys.mongoURI;
+console.log(db);
+mongoose.connect(db)
+.then(() => console.log('It is connected!'))
+.catch(() => console.log('Not Connected'));
+
+//Passport config 
+homePage.use(passport.initialize());
+require('.../../config/passport')(passport);
 
 //Passport config 
 homePage.use(passport.initialize());
