@@ -3,7 +3,7 @@ const mongoose  = require('mongoose');
 const passport = require('passport');
 const keys = require('./config/keys');
 const homePage = express();
-const login = require ('./routes/login');
+const users = require ('./routes/login');
 const post = require ('./routes/post');
 const profile = require ('./routes/profile');
 
@@ -19,13 +19,14 @@ mongoose
   .catch(err => console.log('Not connected', err))
 
 //Passport config 
-
+homePage.use(passport.initialize());
+require('./config/passport')(passport);
 
 //first route
 homePage.get('/', (req, res) => res.send('Hello, its a beautiful day, I am loving it'));
 
 //routes
-homePage.use('/routes/login', login);
+homePage.use('/routes/users', users);
 homePage.use('/routes/post', post);
 homePage.use('/routes/profile', profile);
 

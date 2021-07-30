@@ -4,10 +4,12 @@ const User = require ('../models/user');
 const bcrypt = require ('bcryptjs');
 const gravatar = require ('gravatar');
 //const keys = require('../config/keys');
+const validateRegisterInput = require('../validation/register');
 
 //@route        Post routes/login/register
 //description   Register a user 
 //@access       Public 
+
 router.post('/register', (req, res)=> {
     User.findOne({email:req.body.email})
         .then(user => {
