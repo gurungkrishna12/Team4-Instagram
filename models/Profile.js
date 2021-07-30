@@ -25,12 +25,9 @@ const ProfileSchema = new Schema({
     photos:{
       type: String
     },
-    reel:{
+    video:{
       type: String
     },
-    IGTV:{
-      type: String
-    }
   }]
 });
 

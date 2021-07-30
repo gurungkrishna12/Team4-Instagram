@@ -4,6 +4,7 @@ const router = express.Router();
 const passport = require ("passport");
 
 
+
 //Load Profile model 
 const Profile = require("../models/Profile");
 //Load user model 
@@ -33,6 +34,26 @@ router.get(
     }
 );
 
+// @route   GET api/profile/all
+// @desc    Get all profiles
+// @access  Public
+router.get("/all", (req, res) => {
+    const errors = {};
+
+    Profile.find()
+        .populate("user", ["name", "avatar"])
+        .then((profiles) => {
+        if (!profiles) {
+            errors.noprofile = "There are no profiles";
+        return res.status(404).json(errors);
+        }
+
+        res.json(profiles);
+    })
+    .catch((err) => res.status(404).json(err));
+});
+
+
 // @route   GET api/profile/user/:user_id
 // @desc    Get profile by user ID
 // @access  Public
@@ -60,7 +81,8 @@ const errors = {};
 
 router.get("/handle/:handle", (req, res) => {
 const errors = {};
-    Profile.findOne({ handle: req.params.handle })
+
+Profile.findOne({ handle: req.params.handle })
     .populate("user", ["name", "avatar"])
     .then((profile) => {
     if (!profile) {
@@ -91,9 +113,9 @@ router.post(
         const profileFields = {};
         profileFields.user = req.user.id;
         if (req.body.handle) profileFields.handle = req.body.handle;
-        if (req.body.pronoun) profileFields.company = req.body.pronoun;
+        if (req.body.pronoun) profileFields.companypronoun = req.body.pronoun;
         if (req.body.website) profileFields.website = req.body.website;
-        if (req.body.bio) profileFields.location = req.body.bio;
+        if (req.body.bio) profileFields.bio = req.body.bio;
 
         Profile.findOne({ user: req.user.id }).then((profile) => {
         if (profile) {
@@ -104,8 +126,6 @@ router.post(
             { new: true }
             ).then((profile) => res.json(profile));
         } else {
-            // Create
-
             // Check if handle exists
             Profile.findOne({ handle: profileFields.handle }).then((profile) => {
             if (profile) {
@@ -128,19 +148,15 @@ router.post(
 "/posts",
 passport.authenticate("jwt", { session: false }),
 (req, res) => {
-    const { errors, isValid } = validatePostsInput(req.body);
-
-    // Check Validation
-    if (!isValid) {
-    // Return any errors with 400 status
-    return res.status(400).json(errors);
-    }
 
     Profile.findOne({ user: req.user.id }).then((profile) => {
+    if(!profile){
+        error.noprofile="There is no profile post for this user";
+        return res.status(404).json(errors);
+    }    
     const newPosts = {
         photos: req.body.photos,
-        reel: req.body.reels,
-        IGTV: req.body.IGTV,
+        videos: req.body.videos,
     };
 
     // Add to exp array
@@ -154,7 +170,7 @@ passport.authenticate("jwt", { session: false }),
 // @desc    Delete education from profile
 // @access  Private
 router.delete(
-"/posts/:pos_id",
+"/posts/:post_id",
     passport.authenticate("jwt", { session: false }),
     (req, res) => {
         Profile.findOne({ user: req.user.id })
@@ -162,7 +178,7 @@ router.delete(
             // Get remove index
             const removeIndex = profile.posts
             .map((item) => item.id)
-            .indexOf(req.params.pos_id);
+            .indexOf(req.params.post_id);
 
             if (removeIndex === -1) {
             errors.postsnotfound = "Post not found";
