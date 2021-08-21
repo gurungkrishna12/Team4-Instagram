@@ -10,7 +10,7 @@ const profile = require ('./routes/profile');
 
 
 
-//body parser config 
+//body parser config
 
 homePage.use(express.urlencoded());
 homePage.use(express.json());

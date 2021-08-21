@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
-import {registerUser} from '../../actions/authActions';
+import { registerUser } from '../../actions/authActions';
 import { withRouter } from 'react-router-dom';
 
- class Register extends Component {
+class Register extends Component {
   constructor(){
     super();
     this.state = {
@@ -16,7 +16,7 @@ import { withRouter } from 'react-router-dom';
       errors: {}
     }
   }
-  
+
   onChange(e){
     this.setState({[e.target.name]: e.target.value})
   }
@@ -30,10 +30,22 @@ import { withRouter } from 'react-router-dom';
       password: this.state.password,
       password2: this.state.password2
     };
+
+    // 
+    this.props.registerUser(newUser, this.props.history);
+
+  }
+
+
+  componentWillReceiveProps(nextProps){
+    if (nextProps.errors){
+      this.setState({errors: nextProps.errors});
+    }
   }
 
   render() {
     const {errors} = this.state;
+    //const errors = this.state.errors;
 
     return (
       <div className="register">
@@ -41,19 +53,30 @@ import { withRouter } from 'react-router-dom';
           <div className="row">
             <div className="col-md-8 m-auto">
               <h1 className="display-4 text-center">Sign Up</h1>
-              <p className="lead text-center">Create your Instagram account</p>
-              <form noValidate onSubmit={this.onSubmit.bind(this)}></form>
-              <form action="create-profile.html">
+              <p className="lead text-center">Create your DevConnector account</p>
+              <form noValidate onSubmit={this.onSubmit.bind(this)}>
                 <div className="form-group">
-                  <input type="text" className="form-control form-control-lg" placeholder="Name" name="name" required />
+                  <input type="text" 
+                  className={classnames('form-control form-control-lg', {'is-invalid': errors.name})} 
+                  placeholder="Name"
+                  name="name" 
+                  value={this.state.name} 
+                  onChange={this.onChange.bind(this)}
+                  />
+                  {errors.name && (
+                  <div className="invalid-feedback">{errors.name}</div>)}
                 </div>
                 <div className="form-group">
-                  <input type="email" className={classnames('form-control form-control-lg', {'is-invalid': errors.email})} placeholder="Email Address" name="email" value={this.state.email} 
-                  onChange={this.onChange.bind(this)}/>
-                  <small classNameName="form-text text-muted">This site uses Gravatar so if you want a profile image, use a Gravatar email</small>
+                  <input type="email"
+                  className={classnames('form-control form-control-lg', {'is-invalid': errors.email})}
+                   placeholder="Email Address" name="email"
+                  value={this.state.email} 
+                  onChange={this.onChange.bind(this)}
+                   />
+                  <small className="form-text text-muted">This site uses Gravatar so if you want a profile image, use a Gravatar email</small>
                   {errors.email && (
                   <div className="invalid-feedback">{errors.email}</div>)}
-                </div>
+                  </div>
                 <div className="form-group">
                   <input type="password"
                   className={classnames('form-control form-control-lg', {'is-invalid': errors.password})}
@@ -84,9 +107,18 @@ import { withRouter } from 'react-router-dom';
           </div>
         </div>
       </div>
-
     )
   }
 }
 
-export default Register;
+Register.propTypes = {
+  registerUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  errors: state.errors
+})
+
+export default connect(mapStateToProps, {registerUser})(withRouter(Register));
