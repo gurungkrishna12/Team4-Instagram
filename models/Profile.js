@@ -21,7 +21,7 @@ const ProfileSchema = new Schema({
     type: String,
     required: true,
   },
-  posts:[{
+  media:[{
     photos:{
       type: String
     },

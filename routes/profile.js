@@ -143,17 +143,17 @@ router.post(
     });
 });
 
-// @route   POST route/profile/post
+// @route   POST route/media/post
 // @desc    Add posts to profile
 // @access  Private
 router.post(
-"/posts",
+"/media",
 passport.authenticate("jwt", { session: false }),
 (req, res) => {
 
     Profile.findOne({ user: req.user.id }).then((profile) => {
     if(!profile){
-        error.noprofile="There is no profile post for this user";
+        error.noprofile="There is no profile media for this user";
         return res.status(404).json(errors);
     }    
     const newPosts = {
@@ -162,7 +162,7 @@ passport.authenticate("jwt", { session: false }),
     };
 
     // Add to exp array
-    profile.posts.unshift(newPosts);
+    profile.media.unshift(newMedia);
     profile.save().then((profile) => res.json(profile));
     });
     }
@@ -172,24 +172,24 @@ passport.authenticate("jwt", { session: false }),
 // @desc    Delete education from profile
 // @access  Private
 router.delete(
-"/posts/:post_id",
+"/media/:media_id",
     passport.authenticate("jwt", { session: false }),
     (req, res) => {
         Profile.findOne({ user: req.user.id })
         .then((profile) => {
             // Get remove index
-            const removeIndex = profile.posts
+            const removeIndex = profile.media
             .map((item) => item.id)
-            .indexOf(req.params.post_id);
+            .indexOf(req.params.media_id);
 
             if (removeIndex === -1) {
-            errors.postsnotfound = "Post not found";
+            errors.medianotfound = "Media not found";
             // Return any errors with 404 status
             return res.status(404).json(errors);
             }
 
             // Splice out of array
-            profile.posts.splice(removeIndex, 1);
+            profile.media.splice(removeIndex, 1);
 
             // Save
             profile.save().then((profile) => res.json(profile));

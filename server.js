@@ -34,9 +34,9 @@ require('./config/passport')(passport);
 homePage.get('/', (req, res) => res.send('Hello, its a beautiful day, I am loving it'));
 
 //routes
-homePage.use('/routes/users', users);
-homePage.use('/routes/post', post);
-homePage.use('/routes/profile', profile);
+homePage.use('/api/users', users);
+homePage.use('/api/post', post);
+homePage.use('/api/profile', profile);
 
 const port = 5000;
 homePage.listen(port, () => console.log(`Server is running on port ${port}`));
