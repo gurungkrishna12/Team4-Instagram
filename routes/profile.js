@@ -143,53 +143,53 @@ router.post(
     });
 });
 
-// @route   POST route/media/post
-// @desc    Add posts to profile
+// @route   POST route/image/post
+// @desc    Add images to profile
 // @access  Private
 router.post(
-"/media",
+"/image",
 passport.authenticate("jwt", { session: false }),
 (req, res) => {
 
     Profile.findOne({ user: req.user.id }).then((profile) => {
     if(!profile){
-        error.noprofile="There is no profile media for this user";
+        error.noprofile="There is no profile images for this user";
         return res.status(404).json(errors);
     }    
-    const newPosts = {
-        photos: req.body.photos,
-        videos: req.body.videos,
+    const newImage = {
+        caption: req.body.caption,
+        image: req.body.image,
     };
 
     // Add to exp array
-    profile.media.unshift(newMedia);
+    profile.image.unshift(newImage);
     profile.save().then((profile) => res.json(profile));
     });
     }
 );
 
-// @route   DELETE api/profile/education/:edu_id
+// @route   DELETE api/profile/image/:image_id
 // @desc    Delete education from profile
 // @access  Private
 router.delete(
-"/media/:media_id",
-    passport.authenticate("jwt", { session: false }),
+"/image/:image_id",
+    passport.authenticate("jwt", {session: false }),
     (req, res) => {
         Profile.findOne({ user: req.user.id })
         .then((profile) => {
             // Get remove index
-            const removeIndex = profile.media
+            const removeIndex = profile.image
             .map((item) => item.id)
-            .indexOf(req.params.media_id);
+            .indexOf(req.params.image_id);
 
             if (removeIndex === -1) {
-            errors.medianotfound = "Media not found";
+            errors.imagenotfound = "Image not found";
             // Return any errors with 404 status
             return res.status(404).json(errors);
             }
 
             // Splice out of array
-            profile.media.splice(removeIndex, 1);
+            profile.image.splice(removeIndex, 1);
 
             // Save
             profile.save().then((profile) => res.json(profile));

@@ -21,13 +21,10 @@ const ProfileSchema = new Schema({
     type: String,
     required: true,
   },
-  media:[{
-    photos:{
-      type: String
-    },
-    video:{
-      type: String
-    },
+  image:[{
+    caption: String,
+    image: String,
+
   }]
 });
 
