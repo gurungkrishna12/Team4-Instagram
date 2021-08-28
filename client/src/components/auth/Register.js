@@ -63,7 +63,6 @@ class Register extends Component {
                 placeholder='Name' onChange={this.onChange}
                 value={this.state.name}
                 />
-                
                 <TextFieldGroup 
                 name='email'
                 type='email' error={errors.email}
@@ -72,28 +71,24 @@ class Register extends Component {
                 info='This site uses Gravatar so if you want a profile image, use
                 a Gravatar email'
                 />
-                
                 <TextFieldGroup 
                 name='password'
                 type='password' error={errors.password}
                 placeholder='Password' onChange={this.onChange}
                 value={this.state.password}
                 />
-
                 <TextFieldGroup 
                 name='password2'
                 type='password' error={errors.password2}
                 placeholder='Confirm Password' onChange={this.onChange}
                 value={this.state.password2}
                 />
-
                 <input type="submit" className="btn btn-info btn-block mt-4" />
               </form>
             </div>
           </div>
       </div>
       </div>
-
     )
   }
 }
