@@ -1,10 +1,7 @@
-
-
 import React, { Component } from 'react'
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-//import classnames from 'classnames';
 import {loginUser} from '../../actions/authActions';
 import TextFieldGroup from '../common/TextFieldGroup';
 
@@ -16,13 +13,14 @@ class Login extends Component {
       password: '',
       errors: {}
     }
+    this.onSubmit = this.onSubmit.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
   onChange(e){
     this.setState({[e.target.name]: e.target.value})
   }
 
-  
   onSubmit(e){
     e.preventDefault();
 
@@ -58,26 +56,23 @@ class Login extends Component {
           <div className="row">
             <div className="col-md-8 m-auto">
               <h1 className="display-4 text-center">Log In</h1>
-              <p className="lead text-center">Sign in to your DevConnector account</p>
-              <form noValidate onSubmit={this.onSubmit.bind(this)}>
-                <TextFieldGroup
-                  placeholder = 'Email Address'
-                  name ='email'
-                  type = 'email'
-                  value = {this.state.email}
-                  onChange = {this.onChange.bind(this)}
-                  error ={errors.email}
+              <p id="Header" className="lead text-center">Sign in to your DevConnector account</p>
+              <form noValidate onSubmit={this.onSubmit}>
+                <TextFieldGroup 
+                 type='email' value={this.state.email} 
+                 name='email' 
+                 placeholder='Email Address'
+                 error={errors.email} onChange={this.onChange}
+                 info='This site uses Gravatar so if you want a profile image, use
+                  a Gravatar email'
                 />
 
-                <TextFieldGroup
-                  placeholder = 'Password'
-                  name ='password'
-                  type = 'password'
-                  value = {this.state.password}
-                  onChange = {this.onChange.bind(this)}
-                  error ={errors.password}
+                <TextFieldGroup 
+                 type='password' value={this.state.password} 
+                 name='password' 
+                 placeholder='Your Password'
+                 error={errors.password} onChange={this.onChange}
                 />
-
                 <input type="submit" className="btn btn-info btn-block mt-4" />
               </form>
             </div>

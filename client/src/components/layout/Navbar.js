@@ -5,11 +5,18 @@ import PropTypes from 'prop-types';
 import {logoutUser} from '../../actions/authActions';
 
 class Navbar extends Component {
+  constructor() {
+    super();
+    this.onLogoutClick = this.onLogoutClick.bind(this);
+  }
+
   onLogoutClick(e){
     e.preventDefault();
     this.props.logoutUser();
   }
+  
   render() {
+
     const {isAuthenticated, user} = this.props.auth;
 
     const guestLinks = (
@@ -36,9 +43,9 @@ class Navbar extends Component {
           </Link>
         </li>
         <li className="nav-item">
-          <a 
-            href=""
-            onClick={this.onLogoutClick.bind(this)}
+        <Link
+            to=""
+            onClick={this.onLogoutClick}
             className="nav-link"
           >
             <img
@@ -49,10 +56,11 @@ class Navbar extends Component {
               title="You must have a gravatar connected to your email to display an image"
             />
             Logout
-          </a>
+          </Link>
         </li>
       </ul>
     );
+
     return (
       <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
         <div className="container">

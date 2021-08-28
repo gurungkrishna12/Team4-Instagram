@@ -20,15 +20,15 @@ export const loginUser = userData => dispatch =>{
   axios
   .post('/api/users/login', userData)
   .then(res => {
-    //sae token to the localstorage
-    const {token} =res.data;
+    //save token in the localstorage
+    const { token } = res.data;
     localStorage.setItem('jwtToken', token);
 
     //set token to the auth header
     setAuthtoken(token);
 
     //decode the token 
-    const decoded =jwt_decode(token);
+    const decoded = jwt_decode(token);
     dispatch({
       type: SET_CURRENT_USER,
       payload: decoded
@@ -40,6 +40,7 @@ export const loginUser = userData => dispatch =>{
       payload: err.response.data,
     }));  
 }
+
 export const logoutUser = () => dispatch =>{
   //remove from localStorage
   localStorage.removeItem('jwtToken');

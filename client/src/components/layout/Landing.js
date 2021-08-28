@@ -1,10 +1,43 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 import Apple from '../../apple';
 import Androit from '../../androit';
+import {loginUser} from '../../actions/authActions';
+
 
 class Landing extends Component {
+  constructor(){
+    super();
+    this.state = {
+      email: '',
+      password: '',
+      errors: {}
+    }
+    
+    // this.onSubmit = this.onSubmit.bind(this);
+    // this.onChange = this.onChange.bind(this);
+  }
+  componentDidMount(){
+    if (this.props.auth.isAuthenticated){
+      this.props.history.push('/dashboard');
+    }
+  }
+
+  componentWillReceiveProps(nextProps){
+    if (nextProps.errors){
+      this.setState({errors: nextProps.errors});
+    }
+    if (nextProps.auth.isAuthenticated){
+      this.props.history.push('/dashboard');
+    }
+  }
+  
   render() {
+
+    
+
     return (
       <div className="landing">
         <div className="dark-overlay landing-inner text-light">
@@ -29,11 +62,20 @@ class Landing extends Component {
           </div>
           </div>
         </div>
-        
-    
       </div>
     )
   }
 }
 
-export default Landing;
+
+Landing.propTypes = {
+  loginUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth:state.auth,
+  errors: state.errors
+})
+
+export default connect(mapStateToProps, {loginUser})(Landing);

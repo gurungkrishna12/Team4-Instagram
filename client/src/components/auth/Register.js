@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-//import classnames from 'classnames';
+// import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import { registerUser } from '../../actions/authActions';
 import { withRouter } from 'react-router-dom';
@@ -16,6 +16,8 @@ class Register extends Component {
       password2: '',
       errors: {}
     }
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   onChange(e){
@@ -54,48 +56,44 @@ class Register extends Component {
             <div className="col-md-8 m-auto">
               <h1 className="display-4 text-center">Sign Up</h1>
               <p id="Header" className="lead text-center">Create your Instagram-Team4 account</p>
-              <form noValidate onSubmit={this.onSubmit.bind(this)}>
-                <TextFieldGroup
-                  placeholder = 'Name'
-                  name='name'
-                  type='text'
-                  value={this.state.name}
-                  onChange={this.onChange.bind(this)}
-                  error={errors.name}
+              <form noValidate onSubmit={this.onSubmit}>
+                <TextFieldGroup 
+                name='name'
+                type='text' error={errors.name}
+                placeholder='Name' onChange={this.onChange}
+                value={this.state.name}
                 />
                 
-                <TextFieldGroup
-                  placeholder='Email Address'
-                  name='email'
-                  type='email'
-                  value={this.state.email}
-                  onChange={this.onChange.bind(this)}
-                  error={errors.email}
+                <TextFieldGroup 
+                name='email'
+                type='email' error={errors.email}
+                placeholder='Email Address' onChange={this.onChange}
+                value={this.state.email}
+                info='This site uses Gravatar so if you want a profile image, use
+                a Gravatar email'
                 />
-                  <small className="form-text text-muted">This site uses Gravatar so if you want a profile image, use a Gravatar email</small>  
+                
+                <TextFieldGroup 
+                name='password'
+                type='password' error={errors.password}
+                placeholder='Password' onChange={this.onChange}
+                value={this.state.password}
+                />
 
-                <TextFieldGroup
-                  placeholder='Password'
-                  name='password'
-                  type='password'
-                  value={this.state.password}
-                  onChange={this.onChange.bind(this)}
-                  error={errors.password}
-                />               
-                <TextFieldGroup
-                  placeholder='Confirm Password'
-                  name='password2'
-                  type='password'
-                  value={this.state.password2}
-                  onChange={this.onChange.bind(this)}
-                  error={errors.password2}
+                <TextFieldGroup 
+                name='password2'
+                type='password' error={errors.password2}
+                placeholder='Confirm Password' onChange={this.onChange}
+                value={this.state.password2}
                 />
+
                 <input type="submit" className="btn btn-info btn-block mt-4" />
               </form>
             </div>
           </div>
-        </div>
       </div>
+      </div>
+
     )
   }
 }

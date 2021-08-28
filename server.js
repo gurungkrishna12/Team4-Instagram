@@ -2,13 +2,12 @@ const express = require('express');
 const mongoose  = require('mongoose');
 const passport = require('passport');
 const keys = require('./config/keys');
-const homePage = express();
 const users = require ('./routes/login');
 const post = require ('./routes/post');
 const profile = require ('./routes/profile');
 
 //testing
-
+const homePage = express();
 
 //body parser config
 //middlewares
