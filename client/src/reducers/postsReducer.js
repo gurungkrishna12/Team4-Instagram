@@ -23,7 +23,7 @@ export default function(state = initialState, action) {
         return {
           ...state,
           posts: action.payload,
-          loading: true
+          loading: false
         };
        case GET_POST:
          return {
@@ -45,4 +45,4 @@ export default function(state = initialState, action) {
         default:
           return state;
   }
-}
+};
