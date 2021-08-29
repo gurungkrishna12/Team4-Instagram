@@ -12,6 +12,7 @@ const ProfileSchema = new Schema({
     max: 40
   },
   pronoun:{
+    required: true,
     type: String
   },
   website:{
@@ -25,7 +26,25 @@ const ProfileSchema = new Schema({
     caption: String,
     image: String,
 
-  }]
+  }],
+    social: {
+    youtube: {
+      type: String
+    },
+    twitter: {
+      type: String
+    },
+    facebook: {
+      type: String
+    },
+    linkedin: {
+      type: String
+    },
+    instagram: {
+      type: String
+    }   
+  }
+
 });
 
 module.exports = Profile = mongoose.model('profile', ProfileSchema);

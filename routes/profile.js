@@ -115,9 +115,16 @@ router.post(
         const profileFields = {};
         profileFields.user = req.user.id;
         if (req.body.handle) profileFields.handle = req.body.handle;
-        if (req.body.pronoun) profileFields.companypronoun = req.body.pronoun;
+        if (req.body.pronoun) profileFields.pronoun = req.body.pronoun;
         if (req.body.website) profileFields.website = req.body.website;
         if (req.body.bio) profileFields.bio = req.body.bio;
+
+        // Social
+        profileFields.social = {};
+        if (req.body.youtube) profileFields.social.youtube = req.body.youtube;
+        if (req.body.twitter) profileFields.social.twitter = req.body.twitter;
+        if (req.body.facebook) profileFields.social.facebook = req.body.facebook;
+        if (req.body.linkedin) profileFields.social.linkedin = req.body.linkedin;
 
         Profile.findOne({ user: req.user.id }).then((profile) => {
         if (profile) {
