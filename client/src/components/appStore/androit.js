@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from './img/androit.png'; // Tell webpack this JS file uses this image
+import logo from '../../img/androit.png'; // Tell webpack this JS file uses this image
 
 function Androit() {
   // Import result is the URL of your image

@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import Apple from '../../apple';
-import Androit from '../../androit';
+import Apple from '../appStore/apple';
+import Androit from '../appStore/androit';
 import {loginUser} from '../../actions/authActions';
 
 

@@ -11,7 +11,7 @@ import Login from './components/auth/Login';
 import store from './store';
 import { logoutUser } from './actions/authActions';
 import setAuthToken from './utils/setAuthtoken';
-import {SET_USER} from './actions/types';
+import {SET_CURRENT_USER, SET_USER} from './actions/types';
 
 import PrivateRoute from "./components/common/PrivateRoute";
 
@@ -31,10 +31,9 @@ if (localStorage.jwtToken){
   //decode
   const decoded = jwt_decode(localStorage.jwtToken);
   //check the expiry of the token
-  const currentTime = Date.now()/1000;
+  const currentTime = Date.now() / 1000;
   if (decoded.exp < currentTime){
-    //Expired
-    //Logout user
+    //Expired Logout user
     store.dispatch(logoutUser());
     //Redirect user to login
     window.location.href = "/login";
@@ -44,7 +43,7 @@ if (localStorage.jwtToken){
   setAuthToken(localStorage.jwtToken);
   //dispatch
   store.dispatch({
-    type: SET_USER,
+    type: SET_CURRENT_USER,
     payload: decoded,
   });
 }
