@@ -3,6 +3,7 @@ import axios from "axios";
 import setAuthToken from '../utils/setAuthtoken';
 import jwt_decode from 'jwt-decode';
 
+//After rigistering history.push will send us to '/login'
 export const registerUser = (userData, history) => dispatch => {
   axios
     .post('/api/users/register', userData)
@@ -19,7 +20,7 @@ export const loginUser = userData => dispatch => {
     .post("/api/users/login", userData)
     .then((res) => {
       //save the token to localstorage
-      const {token} = res.data;
+      const { token } = res.data;
       localStorage.setItem('jwtToken', token);
       //set token to auth header
       setAuthToken(token);

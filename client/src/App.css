@@ -1,5 +1,9 @@
-.App {
+/* .App {
   text-align: left;
+} */
+
+* {
+  margin: 0;
 }
 img {
   width: 100%;
@@ -51,15 +55,32 @@ img {
 }
 
 #stores {
-  left: 40%;
+  left: 35%;
   position: relative;
   margin: 30px 5px 10px 5px;
 }
 
 
 .apple, .androit {
-  width: 10%;
+  width: 15%;
   z-index: 1;
   margin: 0 auto;
-  
+  object-fit: contain;
+}
+
+.app__headerImage {
+  width: 35%;
+  object-fit: contain;
+}
+
+.nav__header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  z-index: 1;
+  padding: 20px;
+  background-color: #ffffff;
+  border-bottom: 1px solid lightgray;
+  margin-bottom: 10px;
 }
