@@ -58,8 +58,8 @@ router.post('/register', (req, res) =>{
 //@route   POST  routes/users/login
 //@desc    Login a user and generate a token
 //@access  Public 
-router.post('/login', (req,res)=>{
-    //validation
+router.post('/login', (req,res) => {
+    //Login Validation
     const {errors, isValid} = validateLoginInput(req.body);
     
     if(!isValid){

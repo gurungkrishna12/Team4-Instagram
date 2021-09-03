@@ -4,14 +4,10 @@ const router = express.Router();
 const passport = require ("passport");
 const validateProfileInput = require('../validation/profile')
 
-
-
-
 //Load Profile model 
 const Profile = require("../models/Profile");
 //Load user model 
 const User = require("../models/user");
-
 
 // @route   GET api/profile
 // @desc    Get current users profile; check if user has profile or not 
@@ -42,17 +38,17 @@ router.get(
 router.get("/all", (req, res) => {
     const errors = {};
 
-    Profile.find()
+  let n =   Profile.find()
         .populate("user", ["name", "avatar"])
         .then((profiles) => {
         if (!profiles) {
             errors.noprofile = "There are no profiles";
         return res.status(404).json(errors);
         }
-
         res.json(profiles);
     })
     .catch((err) => res.status(404).json(err));
+    console.log(n);
 });
 
 
