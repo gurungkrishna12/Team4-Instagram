@@ -81,6 +81,9 @@ router.delete(
     });
   }
 );
+// @route   POST api/posts/like/:id
+// @desc    Like post
+// @access  Private
 
 // @route   POST api/posts/like/:id
 // @desc    Like post

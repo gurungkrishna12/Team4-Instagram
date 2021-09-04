@@ -24,6 +24,18 @@ export const addPost = postData => dispatch => {
   }))
 };
 
+/// Add images 
+export const addImage = (postImage) => dispatch => {
+  dispatch(setPostLoading())
+  axios.post('/api/posts', postImage)
+  axios.post('/upload', {
+    caption: caption,
+    user: username,
+    image: url
+  });
+  
+}
+
 //Get Posts
 export const getPosts = () => dispatch => {
   dispatch(setPostLoading());

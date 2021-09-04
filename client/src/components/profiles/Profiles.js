@@ -12,15 +12,12 @@ class Profiles extends Component {
 
   render() {
     const { profiles, loading } = this.props.profile;
-
-    console.log(profiles);
     let profileItems;
 
     if (profiles === null || loading) {
       profileItems = <Spinner />;
     } else {
       if (profiles.length > 0) {
-        console.log(profileItems);
         profileItems = profiles.map(profile => (
          
           <ProfileItem key={profile._id} profile={profile} />

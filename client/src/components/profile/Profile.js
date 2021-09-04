@@ -8,6 +8,8 @@ import ProfileCreds from './ProfileCreds';
 import Spinner from '../common/Spinner';
 import { getProfileByHandle } from '../../actions/profileActions';
 
+import ImageUpload from '../posts/UploadImage';
+
 class Profile extends Component {
   componentDidMount() {
     if (this.props.match.params.handle) {
@@ -23,6 +25,12 @@ class Profile extends Component {
 
   render() {
     const { profile, loading } = this.props.profile;
+    const { user } = this.props.auth;
+
+    console.log(user.id);
+    console.log(user);
+    console.log(profile);
+    console.log(profile._id);
     let profileContent;
 
     if (profile === null || loading) {
@@ -40,6 +48,7 @@ class Profile extends Component {
           </div>
           <ProfileHeader profile={profile} />
           <ProfileAbout profile={profile} />
+          <ImageUpload />
           {/* <ProfileCreds
             education={profile.education}
             experience={profile.experience}
@@ -62,11 +71,15 @@ class Profile extends Component {
 
 Profile.propTypes = {
   getProfileByHandle: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+
   profile: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  profile: state.profile
+  profile: state.profile,
+  auth: state.auth
+
 });
 
 export default connect(mapStateToProps, { getProfileByHandle })(Profile);

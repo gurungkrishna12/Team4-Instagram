@@ -8,6 +8,7 @@ const validateProfileInput = require('../validation/profile')
 const Profile = require("../models/Profile");
 //Load user model 
 const User = require("../models/user");
+const ImagePost = require('../models/ImagePost');
 
 // @route   GET api/profile
 // @desc    Get current users profile; check if user has profile or not 
@@ -38,7 +39,7 @@ router.get(
 router.get("/all", (req, res) => {
     const errors = {};
 
-  let n =   Profile.find()
+    Profile.find()
         .populate("user", ["name", "avatar"])
         .then((profiles) => {
         if (!profiles) {
@@ -48,7 +49,6 @@ router.get("/all", (req, res) => {
         res.json(profiles);
     })
     .catch((err) => res.status(404).json(err));
-    console.log(n);
 });
 
 
@@ -145,31 +145,21 @@ router.post(
         }
     });
 });
+///////////////////////////////////////////////////////////////////////////////
 
 // @route   POST route/image/post
 // @desc    Add images to profile
 // @access  Private
-router.post(
-"/image",
-passport.authenticate("jwt", { session: false }),
-(req, res) => {
-
-    Profile.findOne({ user: req.user.id }).then((profile) => {
-    if(!profile){
-        error.noprofile="There is no profile images for this user";
-        return res.status(404).json(errors);
-    }    
-    const newImage = {
-        caption: req.body.caption,
-        image: req.body.image,
-    };
-
-    // Add to exp array
-    profile.image.unshift(newImage);
-    profile.save().then((profile) => res.json(profile));
+router.post("/upload", (req, res) => {
+    const body = req.body;
+    ImagePost.create(body, (err, data) => {
+      if(err) {
+        res.status(500).send('ERRROOO!', err);
+      } else {
+        res.status(201).send(data);
+      }
     });
-    }
-);
+  });
 
 // @route   DELETE api/profile/image/:image_id
 // @desc    Delete education from profile
