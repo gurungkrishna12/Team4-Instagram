@@ -1,73 +1,73 @@
-import React from "react";
+import React, { Component } from "react";
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import "./ImageUpload.css";
 import { Input, Button } from "@material-ui/core";
+import { postImage } from '../../actions/postActions';
 
-const ImageUpload = ({ username }) => {
-  // const handleChange = (e) => {
-  //   if (e.target.files[0]) {
-  //   }
-  // };
-  // const handleUpload = () => {
-  //   const uploadTask = storage.ref(`images/${image.name}`).put(image);
-  //   uploadTask.on(
-  //     "state_changed",
-  //     (snapshot) => {
-  //       // progress function ...
-  //       const progress = Math.round(
-  //         (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-  //       );
-  //       setProgress(progress);
-  //     },
-  //     (error) => {
-  //       // Error function ...
-  //       console.log(error);
-  //     },
-  //     () => {
-  //       // complete function ...
-  //       storage
-  //         .ref("images")
-  //         .child(image.name)
-  //         .getDownloadURL()
-  //         .then((url) => {
-  //           setUrl(url);
+class ImageUpload extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      caption: '',
+      image: '',
+      errors: {}
+    }
+    this.onSubmit = this.onSubmit.bind(this);
+    this.onChange = this.onChange.bind(this);
+  }
 
-  //           axios.post('/upload', {
-  //             caption: caption,
-  //             user: username,
-  //             image: url
-  //           });
+  onSubmit(e) {
+    e.preventDefault();
+    const newImage = {
+      caption: this.state.caption,
+      image: this.state.image,
+    }
+    this.props.postImage(newImage, this.props.history);
+  }
 
-  //           // post image inside db
-  //           db.collection("posts").add({
-  //             imageUrl: url,
-  //             caption: caption,
-  //             username: username,
-  //             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-  //           });
-  //           setProgress(0);
-  //           setCaption("");
-  //           setImage(null);
-  //         });
-  //     }
-  //   );
-  // };
+  onChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
 
-  return (
+  render() {
+    // const { image } = this.props.profile;
+    // console.log(image);
+    return(
     <div className="imageupload">
       {/* <progress className="imageupload__progress" value={progress} max="100" /> */}
-      <Input
-        placeholder="Enter a caption"
-        
-      />
-      <div>
-        <input type="file"  />
-        <Button className="imageupload__button" >
-          Upload
-        </Button>
-      </div>
+      <form onSubmit={this.onSubmit}>
+        <Input
+          placeholder="Enter a caption"
+          name='caption'
+          onChange={this.onChange}
+        />
+        <div>
+          <input type="file" name='image'/>
+          <Button type="submit" className="imageupload__button" >
+            Upload
+          </Button>
+        </div>
+      </form>
       <br />
     </div>
-  );
+    )
+  }
+}
+
+ImageUpload.propTypes = {
+  auth: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired
 };
 
-export default ImageUpload;
+const mapStateToProps = state => ({
+  profile: state.profile,
+  auth: state.auth
+
+});
+
+export default connect(mapStateToProps, { postImage })(ImageUpload);
+
+

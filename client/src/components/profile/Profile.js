@@ -27,10 +27,10 @@ class Profile extends Component {
     const { profile, loading } = this.props.profile;
     const { user } = this.props.auth;
 
-    console.log(user.id);
-    console.log(user);
-    console.log(profile);
-    console.log(profile._id);
+    // console.log(user.id);
+    // console.log(user);
+    // console.log(profile);
+    // console.log(profile._id);
     let profileContent;
 
     if (profile === null || loading) {
@@ -72,7 +72,6 @@ class Profile extends Component {
 Profile.propTypes = {
   getProfileByHandle: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-
   profile: PropTypes.object.isRequired
 };
 

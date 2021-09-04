@@ -7,7 +7,8 @@ import {
   GET_POSTS,
   GET_POST,
   POST_LOADING,
-  DELETE_POST
+  DELETE_POST,
+  ADD_IMAGE
 } from './types';
 
 ///Add Post
@@ -24,20 +25,23 @@ export const addPost = postData => dispatch => {
   }))
 };
 
+///////////////////////////////////////////////////
 /// Add images 
-export const addImage = (postImage) => dispatch => {
+export const postImage = (image) => dispatch => {
   dispatch(setPostLoading())
-  axios.post('/api/posts', postImage)
-  axios.post('/upload', {
-    caption: caption,
-    user: username,
-    image: url
-  });
-  
+  axios.post('/api/posts', image)
+  .then(res => dispatch({
+    type: ADD_IMAGE,
+    payload: res.data
+  }))
+  .catch(err => dispatch({
+    type: GET_ERRORS,
+    payload: err.response.data
+  }));
 }
 
 //Get Posts
-export const getPosts = () => dispatch => {
+export const getPosts = (id) => dispatch => {
   dispatch(setPostLoading());
   axios.get(`/api/posts${id}`)
   .then(res => dispatch({
@@ -61,7 +65,7 @@ export const deletePosts = (id) => dispatch => {
 };
 
 //Add Like
-export const addLike = () => dispatch => {
+export const addLike = (id) => dispatch => {
   axios.post(`/api/posts/like${id}`)
   .then(res => dispatch(getPosts()))
   .catch(err => dispatch({
