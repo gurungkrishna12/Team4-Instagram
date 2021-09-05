@@ -30,8 +30,6 @@ require('.../../config/passport')(passport);
 homePage.use(passport.initialize());
 require('./config/passport')(passport);
 
-//first route
-homePage.get('/', (req, res) => res.send('Hello, its a beautiful day, I am loving it'));
 
 //routes
 homePage.use('/api/users', users);
