@@ -22,13 +22,6 @@ class ProfileAbout extends Component {
                 <span>{profile.bio}</span>
               )}
             </p>
-            <p className="lead">
-              {isEmpty(profile.image) ? (
-                <span>{firstName} does not have any images get</span>
-              ) : (
-                <span>{profile.image}</span>
-              )}
-            </p>
             <hr />
           </div>
         </div>

@@ -8,7 +8,6 @@ import ProfileCreds from './ProfileCreds';
 import Spinner from '../common/Spinner';
 import { getProfileByHandle } from '../../actions/profileActions';
 
-import ImageUpload from '../posts/UploadImage';
 
 class Profile extends Component {
   componentDidMount() {
@@ -48,11 +47,6 @@ class Profile extends Component {
           </div>
           <ProfileHeader profile={profile} />
           <ProfileAbout profile={profile} />
-          <ImageUpload />
-          {/* <ProfileCreds
-            education={profile.education}
-            experience={profile.experience}
-          /> */}
         </div>
       );
     }

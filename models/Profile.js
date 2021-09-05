@@ -22,11 +22,7 @@ const ProfileSchema = new Schema({
     type: String,
     required: true,
   },
-  image:[{
-    caption: String,
-    image: String,
 
-  }],
     social: {
     youtube: {
       type: String

@@ -48,6 +48,7 @@ router.post(
 
     const newPost = new Post({
       text: req.body.text,
+      image: req.body.image,
       name: req.body.name,
       avatar: req.body.avatar,
       user: req.user.id
@@ -56,6 +57,7 @@ router.post(
     newPost.save().then(post => res.json(post));
   }
 );
+
 
 // @route   DELETE api/posts/:id
 // @desc    Delete post
@@ -169,6 +171,7 @@ router.post(
       .then(post => {
         const newComment = {
           text: req.body.text,
+          image: req.body.image,
           name: req.body.name,
           avatar: req.body.avatar,
           user: req.user.id

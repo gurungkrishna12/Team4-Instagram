@@ -35,8 +35,15 @@ homePage.get('/', (req, res) => res.send('Hello, its a beautiful day, I am lovin
 
 //routes
 homePage.use('/api/users', users);
-homePage.use('/api/post', post);
+homePage.use('/api/posts', post);
 homePage.use('/api/profile', profile);
+
+if (process.env.NODE_ENV === 'production'){
+  app.use(express.static('client/build'));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+  })
+}
 
 const port = 5000;
 homePage.listen(port, () => console.log(`Server is running on port ${port}`));
