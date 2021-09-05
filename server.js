@@ -5,6 +5,7 @@ const keys = require('./config/keys');
 const users = require ('./routes/login');
 const post = require ('./routes/post');
 const profile = require ('./routes/profile');
+
 //testing
 const homePage = express();
 
@@ -44,5 +45,5 @@ if (process.env.NODE_ENV === 'production'){
   })
 }
 
-const port = 5000;
-homePage.listen(port, () => console.log(`Server is running on port ${port}`));
+const port = process.env.PORT || 5000;
+app.listen(port, () => console.log(`Server is running on port ${port}`));
