@@ -8,7 +8,7 @@ import ProfileCreds from './ProfileCreds';
 import Spinner from '../common/Spinner';
 import { getProfileByHandle } from '../../actions/profileActions';
 
-import ImageUpload from '../posts/UploadImage';
+import ImageUpload from '../posts/ImageUpload';
 
 class Profile extends Component {
   componentDidMount() {

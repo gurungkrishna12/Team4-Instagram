@@ -7,7 +7,6 @@ const passport = require('passport');
 const Post = require('../models/post');
 // Profile model
 const Profile = require('../models/Profile');
-const PostImage = require('../models/ImagePost')
 
 // Validation
 const validatePostInput = require('../validation/post');
@@ -20,33 +19,6 @@ router.get('/', (req, res) => {
     .then(posts => res.json(posts))
     .catch(err => res.status(404).json({ nopostsfound: 'No posts found' }));
 });
-
-////////////////////////////////////////////////////////////////////////////
-// / @route   POST api/post
-// @desc    Create image
-// @access  Private
-router.post(
-  '/',
-  passport.authenticate('jwt', { session: false }),
-  (req, res) => {
-    // const { errors, isValid } = validatePostInput(req.body);
-    // // Check Validation
-    // if (!isValid) {
-    //   // If any errors, send 400 with errors object
-    //   return res.status(400).json(errors);
-    // }
-    const newImage = new PostImage({
-      caption: req.body.caption,
-      image: req.body.image,
-      comments: [],
-      name: req.body.name,
-      avatar: req.body.avatar,
-      user: req.user.id
-    });
-
-    newImage.save().then(post => res.json(post));
-  }
-);
 
 // @route   GET api/posts/:id
 // @desc    Get post by id
@@ -76,6 +48,7 @@ router.post(
 
     const newPost = new Post({
       text: req.body.text,
+      image: req.body.image,
       name: req.body.name,
       avatar: req.body.avatar,
       user: req.user.id
@@ -84,6 +57,7 @@ router.post(
     newPost.save().then(post => res.json(post));
   }
 );
+
 
 // @route   DELETE api/posts/:id
 // @desc    Delete post
@@ -109,7 +83,9 @@ router.delete(
     });
   }
 );
-
+// @route   POST api/posts/like/:id
+// @desc    Like post
+// @access  Private
 
 // @route   POST api/posts/like/:id
 // @desc    Like post
@@ -195,6 +171,7 @@ router.post(
       .then(post => {
         const newComment = {
           text: req.body.text,
+          image: req.body.image,
           name: req.body.name,
           avatar: req.body.avatar,
           user: req.user.id
