@@ -39,11 +39,11 @@ homePage.use('/api/posts', post);
 homePage.use('/api/profile', profile);
 
 if (process.env.NODE_ENV === 'production'){
-  app.use(express.static('client/build'));
-  app.get('*', (req, res) => {
+  homePage.use(express.static('client/build'));
+  homePage.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
   })
 }
 
 const port = process.env.PORT || 5000;
-app.listen(port, () => console.log(`Server is running on port ${port}`));
+homePage.listen(port, () => console.log(`Server is running on port ${port}`));
