@@ -45,7 +45,7 @@ class ImageUpload extends Component {
           onChange={this.onChange}
         />
         <div>
-          <input type="file" name='image'/>
+          <input type="file" name='image' onChange={this.onChange}/>
           <Button type="submit" className="imageupload__button" >
             Upload
           </Button>

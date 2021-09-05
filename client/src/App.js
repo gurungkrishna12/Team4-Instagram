@@ -11,7 +11,7 @@ import Login from './components/auth/Login';
 import store from './store';
 import { logoutUser } from './actions/authActions';
 import setAuthToken from './utils/setAuthtoken';
-import {SET_CURRENT_USER, SET_USER} from './actions/types';
+import {SET_CURRENT_USER} from './actions/types';
 
 import PrivateRoute from "./components/common/PrivateRoute";
 

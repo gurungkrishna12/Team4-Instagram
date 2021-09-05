@@ -27,13 +27,10 @@ export const addPost = postData => dispatch => {
 
 ///////////////////////////////////////////////////
 /// Add images 
-export const postImage = (image) => dispatch => {
+export const postImage = (image, history) => dispatch => {
   dispatch(setPostLoading())
-  axios.post('/api/posts', image)
-  .then(res => dispatch({
-    type: ADD_IMAGE,
-    payload: res.data
-  }))
+  axios.post('/api/post', image)
+  .then(res => history.push('/dashboard'))
   .catch(err => dispatch({
     type: GET_ERRORS,
     payload: err.response.data

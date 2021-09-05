@@ -43,10 +43,10 @@ export default function(state = initialState, action) {
             posts: state.posts.filter(post => post._id !== action.payload)
            };
          case ADD_IMAGE:
-           return{
+           return {
              ...state,
-             posts: [action.payload, ...state.posts],
-             loading: false
+             post: action.payload,
+             loading: true
            }
 
         default:
