@@ -5,7 +5,6 @@ const keys = require('./config/keys');
 const users = require ('./routes/login');
 const post = require ('./routes/post');
 const profile = require ('./routes/profile');
-
 //testing
 const homePage = express();
 
